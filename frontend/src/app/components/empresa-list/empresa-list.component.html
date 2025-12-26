@@ -1,0 +1,40 @@
+<div class="container">
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <h2>Empresas Cadastradas</h2>
+      <p>{{ empresasFiltradas.length }} empresas no sistema</p>
+    </div>
+
+    <div class="search-box">
+      <input type="text" class="search-input" [(ngModel)]="filtro" placeholder="Buscar por CNPJ, razão social...">
+    </div>
+
+    <div class="header-actions">
+      <button class="btn btn-primary" (click)="novo()">+ Nova Empresa</button>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <div class="cards-grid">
+    <div class="card" *ngFor="let emp of empresasFiltradas">
+      <h3>{{ emp.nomeFantasia }}</h3>
+      <p>{{ emp.razaoSocial }}</p>
+      <p><strong>CNPJ:</strong> {{ emp.cnpj }}</p>
+      <p><strong>Telefone:</strong> {{ emp.telefone }}</p>
+
+      <button class="btn btn-success" (click)="editar(emp)">✏️</button>
+      <button class="btn btn-danger" (click)="excluir(emp.id)">🗑️</button>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <app-empresa-modal
+    *ngIf="empresaSelecionada"
+    [empresa]="empresaSelecionada"
+    (fechar)="empresaSelecionada = undefined"
+    (salvo)="carregarEmpresas()">
+  </app-empresa-modal>
+
+</div>

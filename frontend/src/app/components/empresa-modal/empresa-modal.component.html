@@ -1,0 +1,52 @@
+<div class="modal active">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h2>{{ empresa.id ? 'Editar Empresa' : 'Nova Empresa' }}</h2>
+      <button class="modal-close" (click)="fechar.emit()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <form #empresaForm="ngForm" (ngSubmit)="salvar()">
+        <input type="hidden" [(ngModel)]="empresa.id" name="id">
+
+        <div class="form-group">
+          <label class="form-label">CNPJ *</label>
+          <input type="text" class="form-input" [(ngModel)]="empresa.cnpj" name="cnpj" required maxlength="18">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Razão Social *</label>
+          <input type="text" class="form-input" [(ngModel)]="empresa.razaoSocial" name="razaoSocial" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nome Fantasia *</label>
+          <input type="text" class="form-input" [(ngModel)]="empresa.nomeFantasia" name="nomeFantasia" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Atividade Econômica *</label>
+          <input type="text" class="form-input" [(ngModel)]="empresa.atividadeEconomica" name="atividadeEconomica" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Endereço *</label>
+          <input type="text" class="form-input" [(ngModel)]="empresa.endereco" name="endereco" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Telefone *</label>
+          <input type="text" class="form-input" [(ngModel)]="empresa.telefone" name="telefone" maxlength="15" required>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="fechar.emit()">Cancelar</button>
+          <button type="submit" class="btn btn-success">Salvar</button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</div>

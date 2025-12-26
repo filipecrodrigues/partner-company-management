@@ -1,0 +1,17 @@
+/* Container principal ocupa toda a altura da tela */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Conteúdo cresce e empurra o footer para baixo */
+.content {
+  flex: 1;
+  padding: 16px;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
