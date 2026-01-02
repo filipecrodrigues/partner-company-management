@@ -1,20 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Empresa } from '../../models/empresa.model';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmpresaService } from '../../services/empresa.service';
-
 
 @Component({
   selector: 'app-cadastro',
+  standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     MatCardModule,
-    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule
@@ -22,48 +22,47 @@ import { EmpresaService } from '../../services/empresa.service';
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.scss']
 })
-export class CadastroComponent implements OnInit {
-  form!: FormGroup;
+export class CadastroComponent {
 
-  // Se você passar uma empresa para editar
   @Input() empresaEditar?: Empresa;
 
-  constructor(private fb: FormBuilder, private empresaService: EmpresaService) {}
+  empresa: Empresa = {
+    cnpj: '',
+    razaoSocial: '',
+    nomeFantasia: '',
+    atividadeEconomica: '',
+    endereco: '',
+    telefone: ''
+  };
+
+  constructor(private empresaService: EmpresaService) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      cnpj: ['', Validators.required],
-      razaoSocial: ['', Validators.required],
-      nomeFantasia: ['', Validators.required],
-      atividadeEconomica: ['', Validators.required],
-      endereco: ['', Validators.required],
-      telefone: ['', Validators.required]
-    });
-
-    // Se existe uma empresa para edição, preenche o formulário
     if (this.empresaEditar) {
-      this.form.patchValue(this.empresaEditar);
+      this.empresa = { ...this.empresaEditar };
     }
   }
 
-  // Salvar nova empresa
   salvar(): void {
-    if (this.form.valid) {
-      const empresa: Empresa = this.form.value;
-      this.empresaService.criar(empresa).subscribe({
+    if (this.empresa.cnpj && this.empresa.razaoSocial) {
+      this.empresaService.criar(this.empresa).subscribe({
         next: () => {
           console.log('Empresa cadastrada com sucesso!');
-          this.form.reset();
+          this.cancelar();
         },
         error: (err) => console.error('Erro ao cadastrar empresa', err)
       });
-    } else {
-      this.form.markAllAsTouched();
     }
   }
 
-  // Cancelar e limpar formulário
   cancelar(): void {
-    this.form.reset();
+    this.empresa = {
+      cnpj: '',
+      razaoSocial: '',
+      nomeFantasia: '',
+      atividadeEconomica: '',
+      endereco: '',
+      telefone: ''
+    };
   }
 }
