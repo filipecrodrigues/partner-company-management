@@ -68,6 +68,24 @@
   background: rgba(255, 193, 7, 0.25);
   color: #ffc107;
 }
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  background-color: #f5f5f5;
+  color: #555;
+  text-align: center;
+  padding: 12px 16px;
+  font-size: 13px;
+
+  border-top: 1px solid #e0e0e0;
+  font-weight: 500;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  letter-spacing: 0.02em;
+  user-select: none;
+}
 
 
 /* Responsividade básica */
@@ -105,20 +123,5 @@
     width: 36px;
     height: 36px;
   }
-}
-.footer {
-  background-color: #f5f5f5; /* cinza claro (Material Grey 100) */
-  color: #555;
-
-  text-align: center;
-  padding: 12px 16px; /* leve aumento do padding para ficar alinhado com toolbar */
-  
-  font-size: 13px;
-  border-top: 1px solid #e0e0e0;
-  
-  font-weight: 500; /* para combinar com o peso da fonte do toolbar */
-  font-family: 'Roboto', 'Helvetica Neue', sans-serif; /* padrão do Angular Material */
-  letter-spacing: 0.02em; /* leve espaçamento para melhor leitura */
-  user-select: none; /* evitar seleção acidental */
 }
 
