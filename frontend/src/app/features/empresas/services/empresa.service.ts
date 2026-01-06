@@ -8,7 +8,7 @@ import { Empresa } from '../models/empresa.model';
 })
 export class EmpresaService {
 
-  // URL do backend Java (ajuste conforme seu projeto)
+  // URL do backend Java do projeto
   private readonly API = 'http://localhost:8080/api/empresas';
 
   constructor(private http: HttpClient) {}
