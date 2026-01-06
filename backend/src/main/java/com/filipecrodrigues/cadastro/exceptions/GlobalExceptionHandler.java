@@ -1,14 +1,14 @@
 package com.filipecrodrigues.cadastro.exceptions;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 // Indica que esta classe intercepta exceções
 // de TODOS os controllers da aplicação
@@ -76,7 +76,7 @@ public class GlobalExceptionHandler {
         error.put("message", "Ocorreu um erro inesperado");
 
         // Logaria o erro em produção
-        ex.printStackTrace();
+       // ex.printStackTrace();
 
         // Retorna HTTP 500
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
