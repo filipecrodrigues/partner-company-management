@@ -45,8 +45,8 @@
         </div>
 
         <div class="card-actions">
-          <button class="btn btn-success btn-icon" (click)="editar(emp.id)">✏️</button>
-          <button class="btn btn-danger btn-icon" (click)="deletar(emp.id)">🗑️</button>
+          <button *ngIf="emp.id !== undefined" (click)="editar(emp.id)">✏️</button>
+          <button *ngIf="emp.id !== undefined" (click)="deletar(emp.id)">🗑️</button>
         </div>
       </div>
     </div>
