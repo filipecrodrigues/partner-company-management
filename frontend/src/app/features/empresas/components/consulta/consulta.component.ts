@@ -6,6 +6,9 @@ import { MatInputModule } from '@angular/material/input';
 import { Empresa } from '../../models/empresa.model';
 import { EmpresaService } from '../../services/empresa.service';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+
+import { CadastroComponent } from '../cadastro/cadastro.component';
 
 @Component({
   selector: 'app-consulta',
@@ -24,13 +27,15 @@ export class ConsultaComponent implements OnInit {
   empresas: Empresa[] = [];
   searchTerm: string = '';
 
-  constructor(private empresaService: EmpresaService) {}
+  constructor(
+    private empresaService: EmpresaService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.carregarEmpresas();
   }
 
-  // Carrega todas as empresas do backend
   carregarEmpresas(): void {
     this.empresaService.listar().subscribe({
       next: (dados) => this.empresas = dados,
@@ -38,7 +43,19 @@ export class ConsultaComponent implements OnInit {
     });
   }
 
-  // Busca empresas pelo termo
+  abrirCadastro(): void {
+    const dialogRef = this.dialog.open(CadastroComponent, {
+      width: '700px',
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe((sucesso: boolean) => {
+      if (sucesso) {
+        this.carregarEmpresas();
+      }
+    });
+  }
+
   buscar(): void {
     if (!this.searchTerm) {
       this.carregarEmpresas();
@@ -52,26 +69,19 @@ export class ConsultaComponent implements OnInit {
     );
   }
 
-  // Editar empresa
   editar(id: number) {
     console.log('Editar empresa', id);
-    // this.router.navigate(['/cadastro', id]); // se tiver roteamento
   }
 
-  // Deletar empresa
   deletar(id: number) {
     if (!confirm('Deseja realmente deletar esta empresa?')) return;
 
     this.empresaService.deletar(id).subscribe({
-      next: () => {
-        console.log('Empresa deletada', id);
-        this.carregarEmpresas();
-      },
+      next: () => this.carregarEmpresas(),
       error: (err) => console.error('Erro ao deletar', err)
     });
   }
 
-  // Getter para filtrar dinamicamente (opcional)
   get empresasFiltradas() {
     if (!this.searchTerm) return this.empresas;
     const term = this.searchTerm.toLowerCase();
