@@ -1,0 +1,80 @@
+@use 'styles/variables' as *;
+
+.card {
+  background: white;
+  border: 1px solid $border;
+  border-radius: $radius;
+  padding: 1.5rem;
+  transition: $transition;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    border-color: $primary;
+    transform: translateY(-2px);
+  }
+}
+
+.card-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+
+  .card-id {
+    background: $secondary;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.card-subtitle {
+  font-size: 0.85rem;
+  color: $text-secondary;
+  margin-bottom: 1rem;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+
+    .label {
+      color: $text-secondary;
+      font-weight: 500;
+    }
+  }
+}
+
+.card-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.25rem;
+
+  .btn {
+    flex: 1;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+
+    &.edit {
+      background: $success;
+    }
+
+    &.delete {
+      background: $danger;
+    }
+  }
+}

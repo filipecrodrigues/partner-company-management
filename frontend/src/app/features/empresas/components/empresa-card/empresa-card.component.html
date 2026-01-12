@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-header">
+    <span class="card-id">#{{ empresa.id }}</span>
+  </div>
+
+  <h3 class="card-title">{{ empresa.nomeFantasia }}</h3>
+  <p class="card-subtitle">{{ empresa.razaoSocial }}</p>
+
+  <div class="card-info">
+    <div class="info-row">
+      <span class="label">CNPJ</span>
+      <span>{{ empresa.cnpj }}</span>
+    </div>
+
+    <div class="info-row">
+      <span class="label">Endereço</span>
+      <span>{{ empresa.endereco }}</span>
+    </div>
+
+    <div class="info-row">
+      <span class="label">Telefone</span>
+      <span>{{ empresa.telefone }}</span>
+    </div>
+  </div>
+
+  <div class="card-actions">
+    <button class="btn edit" (click)="onEditar()">✏️</button>
+    <button class="btn delete" (click)="onDeletar()">🗑️</button>
+  </div>
+</div>
