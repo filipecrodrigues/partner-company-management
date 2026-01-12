@@ -3,11 +3,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { Empresa } from '../../models/empresa.model';
-import { EmpresaService } from '../../services/empresa.service';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 
+import { Empresa } from '../../models/empresa.model';
+import { EmpresaService } from '../../services/empresa.service';
+import { EmpresaCardComponent } from '../../components/empresa-card/empresa-card.component';
 import { CadastroComponent } from '../../components/cadastro/cadastro.component';
 
 @Component({
@@ -18,12 +19,14 @@ import { CadastroComponent } from '../../components/cadastro/cadastro.component'
     MatCardModule,
     MatIconModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    EmpresaCardComponent
   ],
   templateUrl: './empresas-lista.component.html',
   styleUrls: ['./empresas-lista.component.scss']
 })
 export class EmpresasListaComponent implements OnInit {
+
   empresas: Empresa[] = [];
   searchTerm: string = '';
 
@@ -33,7 +36,35 @@ export class EmpresasListaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.carregarEmpresas();
+
+    /* ============================
+       MODO MOCK (layout / visual)
+       ============================ */
+    this.empresas = [
+      {
+        id: 99,
+        cnpj: '00.000.000/0001-00',
+        razaoSocial: 'Empresa Exemplo LTDA',
+        nomeFantasia: 'Exemplo Corp',
+        atividadeEconomica: 'Serviços Gerais',
+        endereco: 'Rua Exemplo, 123',
+        telefone: '(00) 90000-0000'
+      },
+      {
+        id: 100,
+        cnpj: '11.111.111/0001-11',
+        razaoSocial: 'Empresa Teste Dois SA',
+        nomeFantasia: 'Teste Dois',
+        atividadeEconomica: 'Consultoria em TI',
+        endereco: 'Av. Central, 456',
+        telefone: '(11) 98888-7777'
+      }
+    ];
+
+    /* ============================
+       MODO BACKEND (produção)
+       ============================ */
+    // this.carregarEmpresas();
   }
 
   carregarEmpresas(): void {
@@ -58,7 +89,7 @@ export class EmpresasListaComponent implements OnInit {
 
   buscar(): void {
     if (!this.searchTerm) {
-      this.carregarEmpresas();
+      // this.carregarEmpresas();
       return;
     }
 
@@ -69,11 +100,11 @@ export class EmpresasListaComponent implements OnInit {
     );
   }
 
-  editar(id: number) {
+  editar(id: number): void {
     console.log('Editar empresa', id);
   }
 
-  deletar(id: number) {
+  deletar(id: number): void {
     if (!confirm('Deseja realmente deletar esta empresa?')) return;
 
     this.empresaService.deletar(id).subscribe({
@@ -82,8 +113,9 @@ export class EmpresasListaComponent implements OnInit {
     });
   }
 
-  get empresasFiltradas() {
+  get empresasFiltradas(): Empresa[] {
     if (!this.searchTerm) return this.empresas;
+
     const term = this.searchTerm.toLowerCase();
     return this.empresas.filter(emp =>
       emp.cnpj.toLowerCase().includes(term) ||
@@ -91,3 +123,17 @@ export class EmpresasListaComponent implements OnInit {
     );
   }
 }
+
+/**
+Teste mocks dados para facilitar validação do visual
+
+👉 Para usar MOCK   
+this.empresas = [ ... ];  para usar o mock
+// this.carregarEmpresas();
+
+
+👉 Para usar BACKEND
+// this.empresas = [ ... ];
+this.carregarEmpresas(); para usar usar o backend
+
+ */

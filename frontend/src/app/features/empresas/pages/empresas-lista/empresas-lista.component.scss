@@ -1,13 +1,4 @@
-// Variáveis de cores e espaçamento
-$primary: #2563eb;
-$secondary: #f5f5f5;
-$success: #22c55e;
-$danger: #ef4444;
-$border: #ddd;
-$text-secondary: #666;
-$radius: 8px;
-$shadow-md: 0 4px 8px rgba(0,0,0,0.1);
-$transition: all 0.2s ease;
+@use 'styles/variables' as *;
 
 main {
   max-width: 1400px;
@@ -18,7 +9,7 @@ main {
 .container {
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: $shadow-md;
   overflow: hidden;
 }
 
@@ -45,16 +36,15 @@ main {
   }
 
   .search-box {
-    display: flex;
     flex: 1;
     max-width: 400px;
+    padding-right: 20px;
 
     .search-input {
-      flex: 1;
+      width: 100%;
       padding: 0.625rem 1rem;
       border: 1px solid $border;
       border-radius: $radius;
-      font-size: 0.875rem;
 
       &:focus {
         outline: none;
@@ -68,82 +58,6 @@ main {
 .cards-grid {
   padding: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.5rem;
-
-  .card {
-    background: white;
-    border: 1px solid $border;
-    border-radius: $radius;
-    padding: 1.5rem;
-    transition: $transition;
-
-    &:hover {
-      box-shadow: $shadow-md;
-      border-color: $primary;
-      transform: translateY(-2px);
-    }
-
-    .card-header {
-      .card-id {
-        background: $secondary;
-        padding: 0.25rem 0.75rem;
-        border-radius: 999px;
-        font-size: 0.75rem;
-        font-weight: 600;
-      }
-    }
-
-    .card-title {
-      font-size: 1.125rem;
-      font-weight: 600;
-    }
-
-    .card-subtitle {
-      font-size: 0.875rem;
-      color: $text-secondary;
-      margin-bottom: 1rem;
-    }
-
-    .card-info {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-
-      .info-row {
-        display: flex;
-        gap: 0.5rem;
-        font-size: 0.875rem;
-
-        .info-label {
-          min-width: 80px;
-          font-weight: 500;
-          color: $text-secondary;
-        }
-      }
-    }
-
-    .card-actions {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 1rem;
-
-      .btn-icon {
-        padding: 0.5rem 0.75rem;
-        border-radius: 6px;
-        border: none;
-        cursor: pointer;
-
-        &.btn-success {
-          background: $success;
-          color: white;
-        }
-
-        &.btn-danger {
-          background: $danger;
-          color: white;
-        }
-      }
-    }
-  }
 }
