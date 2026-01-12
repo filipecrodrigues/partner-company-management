@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { ConsultaComponent } from './features/empresas/components/consulta/consulta.component';
+import { EmpresasListaComponent } from './features/empresas/pages/empresas-lista/empresas-lista.component';
 
 export const routes: Routes = [
   // rota inicial → já abre Empresas Cadastradas
-  { path: '', component: ConsultaComponent },
+  { path: '', component: EmpresasListaComponent },
 
   // (opcional) manter por compatibilidade ou remover depois
-  { path: 'consulta', component: ConsultaComponent },
+  { path: 'consulta', component: EmpresasListaComponent },
 
   // fallback
   { path: '**', redirectTo: '' }

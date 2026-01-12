@@ -8,7 +8,7 @@ import { EmpresaService } from '../../services/empresa.service';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 
-import { CadastroComponent } from '../cadastro/cadastro.component';
+import { CadastroComponent } from '../../components/cadastro/cadastro.component';
 
 @Component({
   selector: 'app-consulta',
@@ -20,10 +20,10 @@ import { CadastroComponent } from '../cadastro/cadastro.component';
     FormsModule,
     MatInputModule
   ],
-  templateUrl: './consulta.component.html',
-  styleUrls: ['./consulta.component.scss']
+  templateUrl: './empresas-lista.component.html',
+  styleUrls: ['./empresas-lista.component.scss']
 })
-export class ConsultaComponent implements OnInit {
+export class EmpresasListaComponent implements OnInit {
   empresas: Empresa[] = [];
   searchTerm: string = '';
 
