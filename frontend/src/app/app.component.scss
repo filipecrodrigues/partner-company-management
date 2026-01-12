@@ -1,31 +1,18 @@
-.toolbar {
+/* ===============================
+   TOOLBAR (HEADER FIXO)
+   =============================== */
+.app-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 64px; /* padrão Material */
   padding: 0 20px;
-  height: 64px;
-}
 
-/* Logo + título */
-.toolbar-left {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #673ab7, #ffb300);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  color: #fff;
-}
-
-.title {
-  font-size: 1.1rem;
-  font-weight: 500;
-  white-space: nowrap;
+  z-index: 1000;
 }
 
 /* Espaçador */
@@ -33,95 +20,76 @@
   flex: 1 1 auto;
 }
 
-/* Navegação */
+/* ===============================
+   NAVEGAÇÃO
+   =============================== */
 .toolbar-nav {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.toolbar-nav a {
+/* ===============================
+   BOTÃO CADASTRAR (MODERNO E LEVE)
+   =============================== */
+.btn-cadastrar {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
-  border-radius: 10px;
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.9);
+
+  padding: 6px 16px;
+  border-radius: 12px;
+
+  font-size: 0.9rem;
   font-weight: 500;
-  transition: all 0.25s ease;
+
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+
+  backdrop-filter: blur(6px);
+  transition: all 0.2s ease;
 }
 
-/* Ícones */
-.toolbar-nav mat-icon {
-  font-size: 20px;
+.btn-cadastrar:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
 }
 
-/* Hover */
-.toolbar-nav a:hover {
-  background: rgba(255, 193, 7, 0.18);
-  color: #ffc107;
+/* ===============================
+   CONTEÚDO PRINCIPAL
+   =============================== */
+.content {
+  padding-top: 64px; /* empurra abaixo da toolbar */
+  padding-bottom: 56px; /* espaço para o footer */
+  min-height: 100vh;
 }
 
-/* Rota ativa */
-.toolbar-nav a.active {
-  background: rgba(255, 193, 7, 0.25);
-  color: #ffc107;
-}
+/* ===============================
+   FOOTER FIXO
+   =============================== */
 .footer {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
 
+  padding: 10px 16px;
+  text-align: center;
+
   background-color: #f5f5f5;
   color: #555;
-  text-align: center;
-  padding: 12px 16px;
-  font-size: 13px;
-
   border-top: 1px solid #e0e0e0;
+
+  font-size: 13px;
   font-weight: 500;
-  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
-  letter-spacing: 0.02em;
   user-select: none;
 }
 
-
-/* Responsividade básica */
+/* ===============================
+   RESPONSIVO
+   =============================== */
 @media (max-width: 768px) {
   .title {
-    display: none; /* Esconde o título para ganhar espaço */
-  }
-
-  .toolbar-nav a {
-    padding: 6px 10px; /* Menos padding para links */
-    font-size: 0.9rem; /* Texto um pouco menor */
-  }
-
-  .toolbar-nav mat-icon {
-    font-size: 18px; /* Ícones um pouco menores */
+    display: none;
   }
 }
-
-/* Para telas muito pequenas, tipo celular */
-@media (max-width: 480px) {
-  .toolbar {
-    padding: 0 10px;
-  }
-
-  .toolbar-nav {
-    gap: 6px; /* Menos espaço entre links */
-  }
-
-  .toolbar-nav a {
-    padding: 6px 8px;
-    font-size: 0.85rem;
-  }
-
-  .logo {
-    width: 36px;
-    height: 36px;
-  }
-}
-

@@ -1,21 +1,22 @@
-<mat-toolbar color="primary" class="toolbar">
-  <div class="toolbar-left">
-    <div class="logo">F</div>
-    <span class="title">Cadastro Empresas Filiadas</span>
-  </div>
+<!-- HEADER FIXO -->
+<mat-toolbar color="primary" class="toolbar app-toolbar">
+  <span class="title">Cadastro Empresas Filiadas</span>
 
   <span class="spacer"></span>
 
   <nav class="toolbar-nav">
-    <!-- botão Cadastrar (ainda sem modal) -->
-    <button mat-button (click)="abrirCadastro()">Cadastrar</button>
+    <button mat-button class="btn-cadastrar" (click)="abrirCadastro()">
+      Novo cadastro
+    </button>
   </nav>
 </mat-toolbar>
 
 <!-- CONTEÚDO -->
-<div class="content">
+<main class="content">
   <router-outlet></router-outlet>
-</div>
+</main>
 
 <!-- FOOTER -->
-<footer class="footer">Copyright © Filipe Cândido - 2025</footer>
+<footer class="footer">
+  © Filipe Cândido - 2025
+</footer>
