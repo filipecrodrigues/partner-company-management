@@ -1,26 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-
-import { EmpresaDialogService } from './features/empresas/services/empresa-dialog.service';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    MatToolbarModule,
-    MatIconModule
-  ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  imports: [RouterOutlet],
+  template: `<router-outlet></router-outlet>`
 })
-export class AppComponent {
-
-  constructor(private dialogService: EmpresaDialogService) {}
-
-  abrirCadastro(): void {
-    this.dialogService.abrirCadastro();
-  }
-}
+export class AppComponent {}

@@ -1,0 +1,95 @@
+/* ===============================
+   TOOLBAR (HEADER FIXO)
+   =============================== */
+.app-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 64px; /* padrão Material */
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Espaçador */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* ===============================
+   NAVEGAÇÃO
+   =============================== */
+.toolbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===============================
+   BOTÃO CADASTRAR 
+   =============================== */
+.btn-cadastrar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 16px;
+  border-radius: 12px;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  background: rgba(232, 233, 225, 0.15);
+  color: #fff;
+
+  backdrop-filter: blur(6px);
+  transition: all 0.2s ease;
+}
+
+.btn-cadastrar:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+/* ===============================
+   CONTEÚDO PRINCIPAL
+   =============================== */
+.content {
+  padding-top: 64px; /* empurra abaixo da toolbar */
+  padding-bottom: 56px; /* espaço para o footer */
+  min-height: 100vh;
+}
+
+/* ===============================
+   FOOTER FIXO
+   =============================== */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  padding: 10px 16px;
+  text-align: center;
+
+  background-color: #f5f5f5;
+  color: #555;
+  border-top: 1px solid #e0e0e0;
+
+  font-size: 13px;
+  font-weight: 500;
+  user-select: none;
+}
+
+/* ===============================
+   RESPONSIVO
+   =============================== */
+@media (max-width: 768px) {
+  .title {
+    display: none;
+  }
+}
