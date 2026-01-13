@@ -1,41 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Empresa } from '../models/empresa.model';
 
-// @Injectable indica que a classe EmpresaService pode ser injetada em outros componentes
-// e permite que o Angular injete dependências nela.
-@Injectable({ 
-  providedIn: 'root' // Service global, não precisa importar em módulo
+@Injectable({
+  providedIn: 'root'
 })
 export class EmpresaService {
 
-  // URL do backend Java do projeto
   private readonly API = 'http://localhost:8080/api/empresas';
+
+  // 🔔 evento de atualização
+  private refreshEmpresas$ = new Subject<void>();
 
   constructor(private http: HttpClient) {}
 
-  // Criar uma nova empresa
+  onRefresh(): Observable<void> {
+    return this.refreshEmpresas$.asObservable();
+  }
+
+  notifyRefresh() {
+    this.refreshEmpresas$.next();
+  }
+
   criar(empresa: Empresa): Observable<Empresa> {
     return this.http.post<Empresa>(this.API, empresa);
   }
 
-  // Listar todas as empresas
   listar(): Observable<Empresa[]> {
     return this.http.get<Empresa[]>(this.API);
   }
 
-  // Buscar empresa por ID
   buscarPorId(id: number): Observable<Empresa> {
     return this.http.get<Empresa>(`${this.API}/${id}`);
   }
 
-  // Atualizar empresa
   atualizar(id: number, empresa: Empresa): Observable<Empresa> {
     return this.http.put<Empresa>(`${this.API}/${id}`, empresa);
   }
 
-  // Deletar empresa
   deletar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.API}/${id}`);
   }

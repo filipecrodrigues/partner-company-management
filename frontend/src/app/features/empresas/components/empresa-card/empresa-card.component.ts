@@ -15,14 +15,14 @@ import { Empresa } from '../../models/empresa.model';
 export class EmpresaCardComponent {
   @Input() empresa!: Empresa;
 
-  @Output() editar = new EventEmitter<number>();
+  @Output() editar = new EventEmitter<Empresa>();
   @Output() deletar = new EventEmitter<number>();
 
-  onEditar() {
-    this.editar.emit(this.empresa.id);
+  onEditar(): void {
+    this.editar.emit(this.empresa);
   }
 
-  onDeletar() {
-    this.deletar.emit(this.empresa.id);
+  onDeletar(): void {
+    this.deletar.emit(this.empresa.id!);
   }
 }

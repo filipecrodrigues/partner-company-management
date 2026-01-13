@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -6,8 +6,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
+import { Subject, takeUntil } from 'rxjs';
+
 import { Empresa } from '../../models/empresa.model';
 import { EmpresaService } from '../../services/empresa.service';
+import { EmpresaDialogService } from '../../services/empresa-dialog.service';
 import { EmpresaCardComponent } from '../../components/empresa-card/empresa-card.component';
 
 @Component({
@@ -24,96 +27,74 @@ import { EmpresaCardComponent } from '../../components/empresa-card/empresa-card
   templateUrl: './empresas-lista.component.html',
   styleUrls: ['./empresas-lista.component.scss']
 })
-export class EmpresasListaComponent implements OnInit {
+export class EmpresasListaComponent implements OnInit, OnDestroy {
 
   empresas: Empresa[] = [];
   searchTerm = '';
 
-  constructor(private empresaService: EmpresaService) {}
+  private destroy$ = new Subject<void>();
+
+  constructor(
+    private empresaService: EmpresaService,
+    private dialogService: EmpresaDialogService
+  ) {}
 
   ngOnInit(): void {
+    // carga inicial
+    this.carregarEmpresas();
 
-    /* ============================
-       MODO MOCK (layout / visual)
-       ============================ */
-    this.empresas = [
-      {
-        id: 99,
-        cnpj: '00.000.000/0001-00',
-        razaoSocial: 'Empresa Exemplo LTDA',
-        nomeFantasia: 'Exemplo Corp',
-        atividadeEconomica: 'Serviços Gerais',
-        endereco: 'Rua Exemplo, 123',
-        telefone: '(00) 90000-0000'
-      },
-      {
-        id: 100,
-        cnpj: '11.111.111/0001-11',
-        razaoSocial: 'Empresa Teste Dois SA',
-        nomeFantasia: 'Teste Dois',
-        atividadeEconomica: 'Consultoria em TI',
-        endereco: 'Av. Central, 456',
-        telefone: '(11) 98888-7777'
-      }
-    ];
+    // 🔔 escuta atualizações vindas do modal
+    this.empresaService
+      .onRefresh()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.carregarEmpresas();
+      });
+  }
 
-    // PRODUÇÃO
-    // this.carregarEmpresas();
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   carregarEmpresas(): void {
     this.empresaService.listar().subscribe({
-      next: dados => this.empresas = dados,
-      error: err => console.error('Erro ao carregar empresas', err)
+      next: (dados) => (this.empresas = dados),
+      error: (err) => console.error('Erro ao carregar empresas', err)
     });
   }
 
-  buscar(): void {
-    if (!this.searchTerm) return;
-
-    const term = this.searchTerm.trim().toLowerCase();
-    this.empresas = this.empresas.filter(emp =>
-      emp.cnpj.toLowerCase().includes(term) ||
-      emp.razaoSocial.toLowerCase().includes(term)
-    );
+  abrirCadastro(): void {
+    this.dialogService.abrirCadastro();
+    // 🔹 refresh já é tratado pelo Subject
   }
 
-  editar(id: number): void {
-    console.log('Editar empresa', id);
-    // edição virá depois com modal
+  editar(empresa: Empresa): void {
+    this.dialogService.abrirEdicao(empresa);
+    // 🔹 refresh já é tratado pelo Subject
   }
 
   deletar(id: number): void {
-    if (!confirm('Deseja realmente deletar esta empresa?')) return;
+    if (!confirm('Deseja realmente deletar esta empresa?')) {
+      return;
+    }
 
     this.empresaService.deletar(id).subscribe({
       next: () => this.carregarEmpresas(),
-      error: err => console.error('Erro ao deletar', err)
+      error: (err) => console.error('Erro ao deletar empresa', err)
     });
   }
 
   get empresasFiltradas(): Empresa[] {
-    if (!this.searchTerm) return this.empresas;
+    if (!this.searchTerm.trim()) {
+      return this.empresas;
+    }
 
     const term = this.searchTerm.toLowerCase();
+
     return this.empresas.filter(emp =>
       emp.cnpj.toLowerCase().includes(term) ||
       emp.razaoSocial.toLowerCase().includes(term)
     );
   }
 }
-
-
-/**
-Teste mocks dados para facilitar validação do visual
-
-👉 Para usar MOCK   
-this.empresas = [ ... ];  para usar o mock
-// this.carregarEmpresas();
-
-
-👉 Para usar BACKEND
-// this.empresas = [ ... ];
-this.carregarEmpresas(); para usar usar o backend
-
- */

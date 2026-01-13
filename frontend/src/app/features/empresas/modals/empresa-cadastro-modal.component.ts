@@ -53,34 +53,37 @@ export class EmpresaCadastroModalComponent implements OnInit {
       this.isEdicao = true;
     }
   }
-    salvar(): void {
-  const request$ = this.isEdicao && this.empresa.id
-    ? this.empresaService.atualizar(this.empresa.id, this.empresa)
-    : this.empresaService.criar(this.empresa);
 
-  request$.subscribe({
-    next: () => {
-      this.snackBar.open(
-        this.isEdicao
-          ? 'Empresa atualizada com sucesso!'
-          : 'Empresa cadastrada com sucesso!',
-        'Fechar',
-        { duration: 3000 }
-      );
+  salvar(): void {
+    const request$ =
+      this.isEdicao && this.empresa.id
+        ? this.empresaService.atualizar(this.empresa.id, this.empresa)
+        : this.empresaService.criar(this.empresa);
 
-      this.dialogRef.close(true);
-    },
-    error: () => {
-      this.snackBar.open(
-        'Erro ao salvar empresa. Tente novamente.',
-        'Fechar',
-        { duration: 4000 }
-      );
-    }
-  });
-}
+    request$.subscribe({
+      next: () => {
+        // 🔔 avisa a lista para atualizar
+        this.empresaService.notifyRefresh();
 
- 
+        this.snackBar.open(
+          this.isEdicao
+            ? 'Empresa atualizada com sucesso!'
+            : 'Empresa cadastrada com sucesso!',
+          'Fechar',
+          { duration: 3000 }
+        );
+
+        this.dialogRef.close(true);
+      },
+      error: () => {
+        this.snackBar.open(
+          'Erro ao salvar empresa. Tente novamente.',
+          'Fechar',
+          { duration: 4000 }
+        );
+      }
+    });
+  }
 
   cancelar(): void {
     this.dialogRef.close(false);
