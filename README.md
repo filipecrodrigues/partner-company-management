@@ -80,9 +80,31 @@ Swagger: http://localhost:8080/swagger-ui.html
 
 ##  Status do Projeto
 
-Em desenvolvimento (Desenvolvendo o Front-end que irá consumir a api)
+Em desenvolvimento
+
+1. ✅ CRUD completo  
+2. 🔄 Dockerização  
+3. 🗄️ Migração para PostgreSQL  
+4. 🧪 Testes com JUnit  
+5. 📦 DTOs  
+6. 🌐 API externa  
+7. 🔐 Login e autenticação  
+
+---
+
+## 🖼️ Screenshots – Etapa 1 ✅
+
+Adicionar imagens em `docs/images`.
+
+---
+
+## 👨‍💻 Autor
+
+Filipe Cândido Rodrigues  
+Desenvolvedor Full Stack Java
+
 
 ##  Autor
 
 Filipe Cândido Rodrigues
-Analista de Suporte | Desenvolvedor Full Stack Java em transição de carreira
+Desenvolvedor Full Stack Java Junior
