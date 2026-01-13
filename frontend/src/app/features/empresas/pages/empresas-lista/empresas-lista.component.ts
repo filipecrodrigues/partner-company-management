@@ -1,24 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { CommonModule } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
 
 import { Empresa } from '../../models/empresa.model';
 import { EmpresaService } from '../../services/empresa.service';
 import { EmpresaCardComponent } from '../../components/empresa-card/empresa-card.component';
-import { CadastroComponent } from '../../components/cadastro/cadastro.component';
 
 @Component({
   selector: 'app-consulta',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     MatCardModule,
     MatIconModule,
-    FormsModule,
     MatInputModule,
     EmpresaCardComponent
   ],
@@ -28,12 +27,9 @@ import { CadastroComponent } from '../../components/cadastro/cadastro.component'
 export class EmpresasListaComponent implements OnInit {
 
   empresas: Empresa[] = [];
-  searchTerm: string = '';
+  searchTerm = '';
 
-  constructor(
-    private empresaService: EmpresaService,
-    private dialog: MatDialog
-  ) {}
+  constructor(private empresaService: EmpresaService) {}
 
   ngOnInit(): void {
 
@@ -61,37 +57,19 @@ export class EmpresasListaComponent implements OnInit {
       }
     ];
 
-    /* ============================
-       MODO BACKEND (produção)
-       ============================ */
+    // PRODUÇÃO
     // this.carregarEmpresas();
   }
 
   carregarEmpresas(): void {
     this.empresaService.listar().subscribe({
-      next: (dados) => this.empresas = dados,
-      error: (err) => console.error('Erro ao carregar empresas', err)
-    });
-  }
-
-  abrirCadastro(): void {
-    const dialogRef = this.dialog.open(CadastroComponent, {
-      width: '700px',
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe((sucesso: boolean) => {
-      if (sucesso) {
-        this.carregarEmpresas();
-      }
+      next: dados => this.empresas = dados,
+      error: err => console.error('Erro ao carregar empresas', err)
     });
   }
 
   buscar(): void {
-    if (!this.searchTerm) {
-      // this.carregarEmpresas();
-      return;
-    }
+    if (!this.searchTerm) return;
 
     const term = this.searchTerm.trim().toLowerCase();
     this.empresas = this.empresas.filter(emp =>
@@ -102,6 +80,7 @@ export class EmpresasListaComponent implements OnInit {
 
   editar(id: number): void {
     console.log('Editar empresa', id);
+    // edição virá depois com modal
   }
 
   deletar(id: number): void {
@@ -109,7 +88,7 @@ export class EmpresasListaComponent implements OnInit {
 
     this.empresaService.deletar(id).subscribe({
       next: () => this.carregarEmpresas(),
-      error: (err) => console.error('Erro ao deletar', err)
+      error: err => console.error('Erro ao deletar', err)
     });
   }
 
@@ -123,6 +102,7 @@ export class EmpresasListaComponent implements OnInit {
     );
   }
 }
+
 
 /**
 Teste mocks dados para facilitar validação do visual
