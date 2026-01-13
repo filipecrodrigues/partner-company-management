@@ -1,0 +1,65 @@
+/* ===============================
+   CARD DO MODAL
+   =============================== */
+.modal-card {
+  width: 100%;
+  max-width: 900px;
+
+  border-radius: 5px;
+  padding: 8px;
+
+  /* Remove aparência pesada */
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  border: none;
+}
+
+/* Remove qualquer sombra duplicada interna */
+:host ::ng-deep mat-card {
+  box-shadow: none;
+}
+
+/* ===============================
+   GRID DO FORMULÁRIO
+   =============================== */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px 20px;
+}
+
+/* Campos que ocupam a linha inteira */
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ===============================
+   CAMPOS MATERIAL
+   =============================== */
+mat-form-field {
+  width: 100%;
+}
+
+/* ===============================
+   Subtitulo
+   =============================== */
+mat-card-subtitle{
+  padding-bottom: 20px;
+}
+
+/* ===============================
+   AÇÕES (BOTÕES)
+   =============================== */
+mat-card-actions {
+  padding: 16px 24px;
+  gap: 12px;
+}
+
+/* ===============================
+   RESPONSIVO
+   =============================== */
+@media (max-width: 600px) {
+  .modal-card {
+    border-radius: 12px;
+    padding: 4px;
+  }
+}
